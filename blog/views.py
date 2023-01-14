@@ -3,6 +3,8 @@ from django.shortcuts import render
 from blog.models import Post
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie
 
 from .forms import CommentForm
 
