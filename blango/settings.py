@@ -33,7 +33,9 @@ class Dev(Configuration):
         'crispy_bootstrap5',
         'debug_toolbar',
         
+        'blango_auth',
         'blog', 
+        
     ]
 
     PASSWORD_HASHERS = [
@@ -55,6 +57,8 @@ class Dev(Configuration):
     ]
 
     ROOT_URLCONF = 'blango.urls'
+
+    AUTH_USER_MODEL = 'blango_auth.User'
 
     TEMPLATES = [
         {
