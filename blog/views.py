@@ -12,7 +12,18 @@ from .forms import CommentForm
 logger = logging.getLogger(__name__)
 
 def index(request):
-  posts = Post.objects.filter(published_at__lte=timezone.now())
+  posts = Post.objects.filter(published_at__lte=timezone.now()).select_related('author')
+  # posts = (
+  #   Post.objects.filter(published_at__lte=timezone.now())
+  #   .select_related("author")
+  #   .defer("created_at", "modified_at") # кроме указанных
+  # )
+  # posts = (
+  #   Post.objects.filter(published_at__lte=timezone.now())
+  #   .select_related("author")
+  #   .only("title", "summary", "content", "author", "published_at", "slug") # все выбранные
+  # )
+  
   logger.debug("Got %d posts", len(posts))
   return render(request, 'blog/index.html', {"posts": posts})
 
@@ -37,3 +48,7 @@ def post_detail(request, slug):
   return render(
         request, "blog/post-detail.html", {"post": post, "comment_form": comment_form}
     )
+
+def get_ip(request):
+  from django.http import HttpResponse
+  return HttpResponse(request.META['REMOTE_ADDR'])
