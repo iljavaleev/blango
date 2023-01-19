@@ -1,0 +1,7 @@
+Sup,
+
+So, now you registered for MyShit.com, good job!
+
+{{ scheme }}://{{ request.get_host }}{% url "django_registration_activate" activation_key %}
+
+Later, dude
