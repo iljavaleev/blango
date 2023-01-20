@@ -23,7 +23,7 @@ def index(request):
   #   .select_related("author")
   #   .only("title", "summary", "content", "author", "published_at", "slug") # все выбранные
   # )
-  
+
   logger.debug("Got %d posts", len(posts))
   return render(request, 'blog/index.html', {"posts": posts})
 
