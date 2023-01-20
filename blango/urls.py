@@ -21,7 +21,8 @@ urlpatterns = [
     RegistrationView.as_view(form_class=BlangoRegistrationForm),
     name='django_registration_register',
     ),
-    path('', include('blog.urls')),
+    path('post/<slug>/', blog.views.post_detail, name="blog-post-detail"),
+    path('', blog.views.index),
 ]
 
 if settings.DEBUG:

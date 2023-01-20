@@ -9,23 +9,48 @@ register = template.Library()
 User = get_user_model()
 logger = logging.getLogger(__name__)
 
-@register.filter
-def author_details(author: User, current: User = None) -> str:
-  if isinstance(author, User):
-    if author == current:
-      return format_html("<strong>me</strong>")
+# @register.filter
+# def author_details(author: User, current: User = None) -> str:
+#   if isinstance(author, User):
+#     if author == current:
+#       return format_html("<strong>me</strong>")
+#
+#     if author.first_name and author.last_name:
+#       name = f"{author.first_name} {author.last_name}"
+#     else:
+#       name = f"{author.username}"
+#
+#     if author.email:
+#       return format_html("<a href='{}'>{}</a>", author.email, name)
+#     else:
+#       return f"{name}"
+#
+#   return ""
+
+@register.simple_tag(takes_context=True)
+def author_details_tag(context):
+    request = context["request"]
+    current_user = request.user
+    post = context["post"]
+    author = post.author
+
+    if author == current_user:
+        return format_html("<strong>me</strong>")
 
     if author.first_name and author.last_name:
-      name = f"{author.first_name} {author.last_name}"
+        name = f"{author.first_name} {author.last_name}"
     else:
-      name = f"{author.username}"
+        name = f"{author.username}"
 
     if author.email:
-      return format_html("<a href='{}'>{}</a>", author.email, name) 
+        prefix = format_html('<a href="mailto:{}">', author.email)
+        suffix = format_html("</a>")
     else:
-      return f"{name}"
+        prefix = ""
+        suffix = ""
 
-  return ""
+    return format_html("{}{}{}", prefix, name, suffix)
+
 
 @register.inclusion_tag("blog/post-list.html")
 def recent_posts(post):
