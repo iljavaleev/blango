@@ -11,9 +11,10 @@ import blango_auth.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ip/', blog.views.get_ip),
-    path('accounts/', include('django.contrib.auth.urls')),
     
-    path("accounts/", include("django_registration.backends.activation.urls")),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('django_registration.backends.activation.urls')),
     
     path('accounts/profile/', blango_auth.views.profile, name='profile'),
     path(
