@@ -8,7 +8,9 @@ from blango_auth.forms import BlangoRegistrationForm
 import blog.views
 import blango_auth.views
 
-urlpatterns = [
+urlpatterns = [path("api/v1/", include("blog.api_urls")),]
+
+urlpatterns += [
     path('admin/', admin.site.urls),
     path('ip/', blog.views.get_ip),
     
@@ -23,6 +25,7 @@ urlpatterns = [
     name='django_registration_register',
     ),
     path('post/<slug>/', blog.views.post_detail, name="blog-post-detail"),
+    
     path('', blog.views.index),
 ]
 
