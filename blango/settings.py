@@ -36,12 +36,13 @@ class Dev(Configuration):
         
 
         'blango_auth',
-        'blog', 
-        
+        'blog',
+               
         'allauth',
         'allauth.account',
         'allauth.socialaccount',
         'allauth.socialaccount.providers.google',
+        'rest_framework',
     ]
 
     PASSWORD_HASHERS = [
