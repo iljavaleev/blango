@@ -8,7 +8,7 @@ from blango_auth.forms import BlangoRegistrationForm
 import blog.views
 import blango_auth.views
 
-urlpatterns = [path("api/v1/", include("blog.api_urls")),]
+urlpatterns = [path('api/v1/', include("blog.api.urls")),]
 
 urlpatterns += [
     path('admin/', admin.site.urls),
